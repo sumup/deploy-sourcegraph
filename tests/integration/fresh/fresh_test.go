@@ -21,7 +21,7 @@ func TestFreshDeployment(t *testing.T) {
 	noCleanup := os.Getenv("NOCLEANUP") == "true"
 
 	// Validate on various kubernetes versions
-	for _, k8sVersion := range []string{"1.18", "1.19", "1.20"} {
+	for _, k8sVersion := range []string{"1.19"} {
 		k8sVersion := k8sVersion
 		t.Run(fmt.Sprintf("GKE version %q", k8sVersion), func(t *testing.T) {
 			config, err := commonConfig()
@@ -72,6 +72,7 @@ func commonConfig() (map[string]string, error) {
 }
 
 func ValidateFrontendIsReachable(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+	fmt.Printf("This is the stack!!!!!!!!\n%v\n", stackInfo.Outputs)
 	ip, err := ingressIP(stackInfo.Outputs)
 
 	if err != nil {
